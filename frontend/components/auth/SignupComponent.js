@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { signup } from '../../actions/auth';
+import React, { useState, useEffect } from 'react';
+import { signup, isAuth } from '../../actions/auth';
 import { FormGroup, Input, Button } from 'reactstrap';
 
 const SignupComponent = () => {
@@ -14,6 +14,10 @@ const SignupComponent = () => {
     });
 
     const { name, email, password, error, loading, message, showForm } = values;
+
+    useEffect(() => {
+        isAuth() && Router.push(`/`);
+    }, []);
 
     const handleSubmit = e => {
         e.preventDefault();

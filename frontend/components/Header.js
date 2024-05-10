@@ -32,16 +32,24 @@ const Header = () => {
                 <NavbarToggler onClick={toggle} />
                 <Collapse isOpen={isOpen} navbar>
                 <Nav className="ml-auto" navbar>
+                    {!isAuth() && (
                     <NavItem>
-                        <NavLink href='/signin'>Signin</NavLink>
+                        <NavLink href='/signin'>Sign In</NavLink>
                     </NavItem>
-                    <NavItem>
-                        <NavLink href='/signup'>Signup</NavLink>
-                    </NavItem>
+                    )}
+                    
+                    {!isAuth() && (
+                        <NavItem>
+                            <NavLink href='/signup'>Signup</NavLink>
+                        </NavItem>
+                    )}
+                    
 
                     {isAuth() && (                   
                      <NavItem>
-                        <NavLink onClick={() => signout(() => Router.replace(`/signin`))}href='/signout'>Signout</NavLink>
+                        <NavLink style={{ cursor: 'pointer' }} onClick={() => signout(() => Router.replace(`/signin`))}>
+                            Signout
+                        </NavLink>
                     </NavItem>)}
 
 

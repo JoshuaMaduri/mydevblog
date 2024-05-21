@@ -65,6 +65,50 @@ exports.signout = (req, res) => {
     });
 };
 
+
+exports.authMiddleware = async (req, res, next) => {
+    try {
+        const authUserId = req.auth._id; 
+        const user = await User.findById(authUserId);
+        if (!user) {
+            return res.status(400).json({
+                error: 'User not found'
+            });
+        }
+        req.profile = user;
+        next();
+    } catch (err) {
+        return res.status(400).json({
+            error: 'User not found'
+        });
+    }
+};
+
+exports.adminMiddleware = async (req, res, next) => {
+    try {
+        const adminUserId = req.auth._id; 
+        const user = await User.findById(adminUserId);
+        if (!user) {
+            return res.status(400).json({
+                error: 'User not found'
+            });
+        }
+        if (user.role !== 1) {
+            return res.status(400).json({
+                error: 'Admin resource. Access denied'
+            });
+        }
+        req.profile = user;
+        next();
+    } catch (err) {
+        return res.status(400).json({
+            error: 'User not found'
+        });
+    }
+};
+
+
+
 exports.requireSignin = expressjwt({
     secret: process.env.JWT_SECRET,
     algorithms: ["HS256"],

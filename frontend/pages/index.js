@@ -5,9 +5,6 @@ const Index = () => {
     return(
         <Layout>
             <h1>Index Page</h1>
-            <Link href="/signup" legacyBehavior>
-                Signup
-            </Link>
         </Layout>
     )
 }

@@ -43,7 +43,24 @@ const Header = () => {
                             <NavLink href='/signup'>Signup</NavLink>
                         </NavItem>
                     )}
+
+
                     
+                    {isAuth() && isAuth().role == 0 &&(                   
+                     <NavItem>
+                        <NavLink href='/user'>
+                            {`${isAuth().name}'s Dashboard`}
+                        </NavLink>
+                    </NavItem>)}
+
+                    {isAuth() && isAuth().role == 1 &&(                   
+                     <NavItem>
+                        <NavLink href='/admin'>
+                            {`${isAuth().name}'s Dashboard`}
+                        </NavLink>
+                    </NavItem>)}
+
+
 
                     {isAuth() && (                   
                      <NavItem>
@@ -51,7 +68,6 @@ const Header = () => {
                             Signout
                         </NavLink>
                     </NavItem>)}
-
 
                 </Nav>
                 </Collapse>

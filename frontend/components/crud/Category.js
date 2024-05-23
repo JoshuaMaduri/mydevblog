@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Router from 'next/router';
+import { Button, Form, FormGroup, Label, Input, Alert, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { isAuth, getCookie } from '../../actions/auth';
 import { create, getCategories, removeCategory, singleCategory } from '../../actions/category';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 const Category = () => {
     const [values, setValues] = useState({
@@ -13,6 +15,9 @@ const Category = () => {
         removed: false,
         reload: false
     });
+
+    const [modal, setModal] = useState(false);
+    const [deleteSlug, setDeleteSlug] = useState('');
 
     const { name, error, success, categories, removed, reload } = values;
     const token = getCookie('token');
@@ -34,33 +39,44 @@ const Category = () => {
     const showCategories = () => {
         return categories.map((c, i) => {
             return (
-                <button 
-                title = "Double click to delete" 
-                type="button" 
-                className="btn btn-outline-primary mr-1 ml-1 mt-3" 
-                key={i} 
-                onDoubleClick={() => deleteConfirm(c.slug)}>
-                    {c.name}
-                </button>
+                
+                <div className='btn-group' role='group' key={i}>
+                    <button 
+                        title = "Double click to delete" 
+                        type="button" 
+                        className="btn btn-outline-primary mr-1 ml-1 mt-3" 
+                        onClick={() => toggleModal(c.slug)}>
+                        <span>{c.name}</span>
+                        <i className="bi bi-x ml-2 delete-icon"></i>
+                    </button>
+                </div>
             )
         });
     };
 
-    const deleteConfirm = slug => {
-        let answer = window.confirm("Are you sure you want to delete the category?")
-        if (answer) {
-            deleteCategory(slug)
-        }
-    }
+    const toggleModal = (slug = '') => {
+        setDeleteSlug(slug);
+        setModal(!modal);
+    };
 
-    const deleteCategory = slug => {
-        removeCategory(slug, token).then(data => {
-            if(data.error) {
-                console.log(data.error);
-            }else {
-                setValues(values => ({ ...values, error: false, success: false, name: '', removed: true, reload: !reload }));
-            }
-        });
+    const deleteCategory = () => {
+        if (deleteSlug) {
+            removeCategory(deleteSlug, token).then(data => {
+                if (data.error) {
+                    console.log(data.error);
+                } else {
+                    setValues(values => ({
+                        ...values,
+                        error: false,
+                        success: false,
+                        name: '',
+                        removed: true,
+                        reload: !reload
+                    }));
+                    toggleModal();
+                }
+            });
+        }
     };
 
     const clickSubmit = e => {
@@ -96,10 +112,6 @@ const Category = () => {
         }
     }
 
-    const mouseMoveHandler = e => {
-        setValues({ ...values, name: e.target.value, error: false, success: false, removed: false });
-    }
-
     const newCategoryFom = () => (
         <form onSubmit={clickSubmit}>
             <div className="form-group">
@@ -119,9 +131,23 @@ const Category = () => {
         {showError()}
         {showRemoved()}
         {newCategoryFom()}
-        <div onMouseMove={mouseMoveHandler}>
-            {showCategories()}
-        </div>
+        
+        {showCategories()}
+        
+
+        <Modal isOpen={modal} toggle={() => toggleModal('')}>
+            <ModalHeader toggle={() => toggleModal('')} close={<button className="close" onClick={() => toggleModal('')}>&times;</button>}>
+                Delete Category
+            </ModalHeader>   
+                <ModalBody>
+                    Are you sure you want to delete this category?
+                </ModalBody>
+                <ModalFooter>
+                    <Button color="danger" onClick={deleteCategory}>Delete</Button>
+                    <Button color="secondary" onClick={() => toggleModal('')}>Cancel</Button>
+                </ModalFooter>
+            </Modal>
+
     </React.Fragment>;
 };
 

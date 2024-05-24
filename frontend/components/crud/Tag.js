@@ -3,15 +3,15 @@ import Link from 'next/link';
 import Router from 'next/router';
 import { Button, Form, FormGroup, Label, Input, Alert, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { isAuth, getCookie } from '../../actions/auth';
-import { create, getCategories, removeCategory, singleCategory } from '../../actions/category';
+import {create, getTags, removeTag, singleTag} from '../../actions/tag';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
-const Category = () => {
+const Tag = () => {
     const [values, setValues] = useState({
         name: '',
         error: false,
         success: false,
-        categories: [],
+        tags: [],
         removed: false,
         reload: false
     });
@@ -19,25 +19,25 @@ const Category = () => {
     const [modal, setModal] = useState(false);
     const [deleteSlug, setDeleteSlug] = useState('');
 
-    const { name, error, success, categories, removed, reload } = values;
+    const { name, error, success, tags, removed, reload } = values;
     const token = getCookie('token');
 
     useEffect(() => {
-        loadCategories()
+        loadTags()
     }, [reload])
 
-    const loadCategories = () => {
-        getCategories().then(data => {
+    const loadTags = () => {
+        getTags().then(data => {
             if(data.error) {
                 console.log(data.error);
             } else {
-                setValues(values => ({ ...values, categories: data }))
+                setValues(values => ({ ...values, tags: data }))
             }
         });
     };
 
-    const showCategories = () => {
-        return categories.map((c, i) => {
+    const showTags = () => {
+        return tags.map((c, i) => {
             return (
                 
                 <div className='btn-group' role='group' key={i}>
@@ -59,9 +59,9 @@ const Category = () => {
         setModal(!modal);
     };
 
-    const deleteCategory = () => {
+    const deleteTag = () => {
         if (deleteSlug) {
-            removeCategory(deleteSlug, token).then(data => {
+            removeTag(deleteSlug, token).then(data => {
                 if (data.error) {
                     console.log(data.error);
                 } else {
@@ -81,7 +81,6 @@ const Category = () => {
 
     const clickSubmit = e => {
         e.preventDefault();
-        // console.log('create category', name);
         create({ name }, token).then(data => {
             if (data.error) {
                 setValues(values => ({ ...values, error: data.error, success: false }));
@@ -97,22 +96,22 @@ const Category = () => {
 
     const showSuccess = () => {
         if (success) {
-            return <p className="text-success">Category created successfully</p>;
+            return <p className="text-success">Tag created successfully</p>;
         }
     }
 
     const showError = () => {
         if (error) {
-            return <p className="text-danger">Category already exists</p>;
+            return <p className="text-danger">Tag already exists</p>;
         }
     }
     const showRemoved = () => {
         if (removed) {
-            return <p className="text-danger">Category removed successfully</p>;
+            return <p className="text-danger">Tag removed successfully</p>;
         }
     }
 
-    const newCategoryForm = () => (
+    const newTagForm = () => (
         <form onSubmit={clickSubmit}>
             <div className="form-group">
                 <label className="text-muted">Name</label>
@@ -130,20 +129,20 @@ const Category = () => {
         {showSuccess()}
         {showError()}
         {showRemoved()}
-        {newCategoryForm()}
+        {newTagForm()}
         
-        {showCategories()}
+        {showTags()}
         
 
         <Modal isOpen={modal} toggle={() => toggleModal('')}>
             <ModalHeader toggle={() => toggleModal('')} close={<button className="close" onClick={() => toggleModal('')}>&times;</button>}>
-                Delete Category
+                Delete Tag
             </ModalHeader>   
                 <ModalBody>
-                    Are you sure you want to delete this category?
+                    Are you sure you want to delete this Tag?
                 </ModalBody>
                 <ModalFooter>
-                    <Button color="danger" onClick={deleteCategory}>Delete</Button>
+                    <Button color="danger" onClick={deleteTag}>Delete</Button>
                     <Button color="secondary" onClick={() => toggleModal('')}>Cancel</Button>
                 </ModalFooter>
             </Modal>
@@ -151,4 +150,4 @@ const Category = () => {
     </React.Fragment>;
 };
 
-export default Category;
+export default Tag;

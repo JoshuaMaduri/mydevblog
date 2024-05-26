@@ -10,13 +10,57 @@ import { createBlog } from '../../actions/blog';
 const ReactQuill = dynamic(() => import('react-quill'), {ssr: false})
 import '../../node_modules/react-quill/dist/quill.snow.css';
 
-const BlogCreate = ({router}) => {
+const CreateBlog = ({router}) => {
+
+    const [body, setBody] = useState({})
+    const [values, setValues] = useState({
+        error: '',
+        sizeError: '',
+        success: '',
+        formData: '',
+        title: '',
+        hidePublishButton: false
+    })
+
+    const {error, sizeError, success,formData, title, hidePublishButton} = values
+
+    const handleChange = name => e => {
+        console.log(e.target.value);
+    }
+    const handleBody = e => {
+        console.log(e);
+    }
+
+    const publishBlog = (e) => {
+        e.preventDefault();
+        console.log('ready to publishBlog')
+    }
+
+    const createBlogForm = () => {
+        return (
+            <form onSubmit={publishBlog}>
+                <div className='form-group'>
+                    <label className='text-muted'>Title</label>
+                    <input type='text' className='form-control' value = {title} onChange={handleChange('title')}></input>
+                </div>
+
+                <div className='form-group'>
+                    <ReactQuill value={body} placeholder='Type something amazing...' onChange={handleBody}/>
+                </div>
+
+                <div>
+                    <button type="submit" className='btn btn-primary'>Publish</button>
+                </div>
+
+            </form>
+        )
+    }
+
     return (
         <div>
-            <h1>Blog Create</h1>
-            {JSON.stringify(router)}
+            {createBlogForm()}
         </div>
     )
 }
 
-export default withRouter(BlogCreate);
+export default withRouter(CreateBlog);

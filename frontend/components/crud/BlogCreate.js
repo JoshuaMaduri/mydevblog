@@ -12,7 +12,18 @@ import '../../node_modules/react-quill/dist/quill.snow.css';
 
 const CreateBlog = ({router}) => {
 
-    const [body, setBody] = useState({})
+    const blogFromLS = () => {
+        if(typeof window === 'undefined') {
+            return false;
+        }
+
+        if(localStorage.getItem('blog')) {
+            return JSON.parse(localStorage.getItem('blog'));
+        } else {
+            return false;
+        }
+    }
+    const [body, setBody] = useState(blogFromLS())
     const [values, setValues] = useState({
         error: '',
         sizeError: '',
@@ -44,6 +55,9 @@ const CreateBlog = ({router}) => {
         //console.log(e);
         setBody(e);
         formData.set('body', e);
+        if(typeof window !== 'undefined'){
+            localStorage.setItem('blog', JSON.stringify(e));
+        }
     }
 
 
@@ -71,6 +85,7 @@ const CreateBlog = ({router}) => {
     return (
         <div>
             {createBlogForm()}
+            <hr/>
         </div>
     )
 };

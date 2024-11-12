@@ -3,8 +3,8 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="h-full mt-10 flex">
-      <div className="card bg-base-100 w-96 shadow-xl">
+    <div className="flex justify-between items-center border-solid border-2">
+      <div className="card bg-base-100 lg:w-128 shadow-xl">
         <figure className="px-5 pt-5">
           <Image 
             src="/Profile.jpeg"
@@ -21,34 +21,51 @@ export default function Home() {
             <ul className="flex gap-5">
               <li>
                 <Link href="https://www.linkedin.com/in/jamaduri-it/" className="btn btn-circle btn-outline">
-                  <i class="fa-brands fa-linkedin-in" aria-hidden="true"></i>
+                  <i className="fa-brands fa-linkedin-in" aria-hidden="true"></i>
                 </Link>
               </li>
 
               <li>
                 <Link href="https://twitter.com" className="btn btn-circle btn-outline">
-                  <i class="fa-brands fa-twitter" aria-hidden="true"></i>
+                  <i className="fa-brands fa-twitter" aria-hidden="true"></i>
                 </Link>
               </li>
 
               <li>
                 <Link href="https://www.github.com/JoshuaMaduri" className="btn btn-circle btn-outline">
-                  <i class="fa-brands fa-github" aria-hidden="true"></i>
+                  <i className="fa-brands fa-github" aria-hidden="true"></i>
                 </Link>
               </li>
 
               <li>
                 <Link href="https://www.upwork.com/freelancers/~01ba971cd79401ca10" className="btn btn-circle btn-outline">
-                  <i class="fa-brands fa-upwork" aria-hidden="true"></i>
+                  <i className="fa-brands fa-upwork" aria-hidden="true"></i>
                 </Link>
               </li>
             </ul>
+            <div className="stats stats-vertical lg:stats-horizontal shadow">
+              <div className="stat">
+                <div className="stat-title">Downloads</div>
+                <div className="stat-value">31K</div>
+                <div className="stat-desc">Jan 1st - Feb 1st</div>
+              </div>
+
+              <div className="stat">
+                <div className="stat-title">New Users</div>
+                <div className="stat-value">4,200</div>
+                <div className="stat-desc">↗︎ 400 (22%)</div>
+              </div>
+
+              <div className="stat">
+                <div className="stat-title">New Registers</div>
+                <div className="stat-value">1,200</div>
+                <div className="stat-desc">↘︎ 90 (14%)</div>
+              </div>
+            </div>
         </div>
       </div>
 
-      <div className="divider lg:divider-horizontal"></div>
-
-      <div>
+      <div className="hidden">
         <h2>Blog</h2>
         <div className="carousel carousel-center bg-neutral rounded-box max-w-md space-x-4 p-4">  
 

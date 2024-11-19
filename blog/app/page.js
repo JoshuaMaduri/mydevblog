@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="flex justify-between items-center border-solid border-2">
+    <div className="w-full min-h-full flex justify-evenly items-center border-solid border-2">
       <div className="card bg-base-100 lg:w-128 shadow-xl">
         <figure className="px-5 pt-5">
           <Image 
@@ -65,10 +65,10 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="hidden">
+      <div className="'">
         <h2>Blog</h2>
         <div className="carousel carousel-center bg-neutral rounded-box max-w-md space-x-4 p-4">  
-
+          
         </div>
         <div className="divider"></div>
         <h2>Takeaways</h2>

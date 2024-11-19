@@ -1,19 +1,10 @@
 import localFont from "next/font/local";
 import "./globals.css";
 import { Navbar } from "./components/navbar";
+import { roboto } from "./lib/fonts/fonts";
 
 
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
 
 export const metadata = {
   title: "Joshua Maduri - Software Developer",
@@ -24,8 +15,8 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={`container md:mx-auto ${geistSans.variable} ${geistMono.variable} antialiased`}>
+    <html lang="en" className={roboto.className}>
+      <body className={`container md:mx-auto antialiased`}>
           <Navbar/>
           {children}
         <script src="https://kit.fontawesome.com/84ce35745e.js" crossOrigin="anonymous"></script>

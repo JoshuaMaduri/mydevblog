@@ -2,9 +2,12 @@
 'use client';
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import clsx from "clsx";
 
 export const Navbar = () => {
     
+    const pathname = usePathname()
 
     return (
         
@@ -17,12 +20,16 @@ export const Navbar = () => {
             <div className="navbar-center">
                 <ul className="menu menu-horizontal lg:menu-lg md:menu-md rounded-box hidden lg:flex">
                     <li className="mx-5">
-                        <Link href="/">
+                        <Link href="/blog" className={clsx(
+                            {'btn btn-active btn-primary' : pathname === "/blog"}
+                        )}>
                             Blog
                         </Link>
                     </li>
                     <li className="mx-5">
-                        <Link href="/takehome">
+                        <Link href="/takehomes" className={clsx(
+                            {'btn btn-active btn-primary': pathname === "/takehomes"}
+                        )}>
                             Takehomes
                         </Link>
                     </li>

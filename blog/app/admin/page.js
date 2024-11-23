@@ -1,47 +1,134 @@
+
+ 
  const Admin = () => {
+
     return (
-        <section>
-            <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16">
-                <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Add a new blog post</h2>
-                <form action="#">
-                    <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
-                        <div class="sm:col-span-2">
-                            <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Blog Title</label>
-                            <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Type product name" required=""/>
-                        </div>
-                        <div class="w-full">
-                            <label for="brand" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Brand</label>
-                            <input type="text" name="brand" id="brand" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Product brand" required=""/>
-                        </div>
-                        <div class="w-full">
-                            <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price</label>
-                            <input type="number" name="price" id="price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="$2999" required=""/>
-                        </div>
-                        <div>
-                            <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
-                            <select id="category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                <option selected="">Select category</option>
-                                <option value="TV">TV/Monitors</option>
-                                <option value="PC">PC</option>
-                                <option value="GA">Gaming/Console</option>
-                                <option value="PH">Phones</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label for="item-weight" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Item Weight (kg)</label>
-                            <input type="number" name="item-weight" id="item-weight" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="12" required=""/>
-                        </div> 
-                        <div class="sm:col-span-2">
-                            <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
-                            <textarea id="description" rows="8" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Your description here"></textarea>
+        <div className="mt-10 p-10 ">
+            <form className="form-control md:max-w-2xl m-auto flex flex-col gap-10">
+                <div className="mb-1">
+                    <label>
+                    Title:
+                    <input
+                        type="text"
+                        name="title"
+                        // value={formData.title}
+                        className="w-full p-2 mt-2"
+                        required
+                    />
+                    </label>
+                </div>
+
+                <div className="flex flex-row justify-between items-center">
+
+                    <div className="input-group">
+                        <select className="select select-bordered">
+                            <option disabled selected>Pick category</option>
+                            <option>T-shirts</option>
+                            <option>Mugs</option>
+                        </select>
+
+                        <div className="dropdown">
+                            <div tabIndex={0} role="button" className="btn m-1 text-lg">+</div>
+                            <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+                                <li><a>Add a Category</a></li>
+                                <li><a>Edit a Category</a></li>
+                            </ul>
                         </div>
                     </div>
-                    <button type="submit" class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
-                        Add product
-                    </button>
-                </form>
-            </div>
-        </section>
+
+                    <div className="input-group">
+                        <label>
+                            Tags:
+                            <div
+                            style={{
+                                display: 'flex',
+                                flexWrap: 'wrap',
+                                padding: '0.5rem',
+                                border: '1px solid #ddd',
+                                borderRadius: '5px',
+                                marginTop: '0.5rem',
+                            }}
+                            >
+                            {/* {tags.map((tag, index) => (
+                                <div
+                                key={index}
+                                style={{
+                                    backgroundColor: '#0070f3',
+                                    color: '#fff',
+                                    padding: '0.25rem 0.5rem',
+                                    borderRadius: '3px',
+                                    marginRight: '0.5rem',
+                                    marginBottom: '0.5rem',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                }}
+                                >
+                                <span>{tag}</span>
+                                <button
+                                    // onClick={() => handleRemoveTag(index)}
+                                    style={{
+                                    backgroundColor: 'transparent',
+                                    color: '#fff',
+                                    border: 'none',
+                                    marginLeft: '0.5rem',
+                                    cursor: 'pointer',
+                                    }}
+                                >
+                                    ×
+                                </button>
+                                </div>
+                            ))} */}
+                            </div>
+                            <textarea
+                            // value={inputValue}
+                            // onChange={(e) => setInputValue(e.target.value)}
+                            // onKeyDown={handleKeyDown}
+                            // placeholder={tags.length >= 5 ? 'Tag limit reached!' : 'Press Enter or Comma to add tags'}
+                            // disabled={tags.length >= 5}
+                            style={{
+                                width: '100%',
+                                padding: '0.5rem',
+                                marginTop: '0.5rem',
+                                resize: 'none',
+                                height: '50px',
+                                // borderColor: tags.length >= 5 ? '#d32f2f' : '#ddd',
+                            }}
+                            />
+                        </label>
+                        {/* {tags.length >= 5 && (
+                            <p style={{ color: '#d32f2f', marginTop: '0.5rem' }}>
+                                You can add a maximum of 5 tags.
+                            </p>
+                        )} */}
+                        <div className="dropdown">
+                            <div tabIndex={0} role="button" className="btn m-1 text-lg">+</div>
+                            <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+                                <li><a>Add a Category</a></li>
+                                <li><a>Edit a Category</a></li>
+                            </ul>
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div className="mb-1">
+                    <label>
+                    Content:
+                    <textarea
+                        name="content"
+                        // value={formData.content}
+                        required
+                        style={{ width: '100%', padding: '0.5rem', marginTop: '0.5rem', minHeight: '150px' }}
+                    />
+                    </label>
+                </div>
+
+                <button className="btn">Add Post</button>
+
+            </form>
+            
+        </div>
 
     )
 }

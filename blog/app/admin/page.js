@@ -1,4 +1,4 @@
-
+import prisma from '../lib/prisma'
  
  const Admin = () => {
 
@@ -39,16 +39,7 @@
                     <div className="input-group">
                         <label>
                             Tags:
-                            <div
-                            style={{
-                                display: 'flex',
-                                flexWrap: 'wrap',
-                                padding: '0.5rem',
-                                border: '1px solid #ddd',
-                                borderRadius: '5px',
-                                marginTop: '0.5rem',
-                            }}
-                            >
+                            <div className="flex flex-wrap p-2 border border-solid border-current rounded-full mt-2">
                             {/* {tags.map((tag, index) => (
                                 <div
                                 key={index}

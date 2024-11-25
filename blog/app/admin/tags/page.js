@@ -1,6 +1,6 @@
 'use client';
 import { useAppDispatch, useAppSelector } from "@/app/lib/hooks";
-import { getTags, createTag, deleteTag } from '@/app/lib/features/tags/tagService';
+import { fetchTags } from "@/app/lib/features/tags/tagsSlice";
 import { useEffect, useState } from "react";
 
 const Tags = () => {
@@ -9,31 +9,19 @@ const Tags = () => {
     const error = useAppSelector((state) => state.tag.error);
     const dispatch = useAppDispatch();
     
-    const [tagInput, setTagInput] = useState('');
 
     useEffect(() => {
-        if (status === "idle" && tags.length === 0) {
-            dispatch(getTags());
+        if(status === 'idle'){
+            dispatch(fetchTags());
         }
-    }, [status, tags.length, dispatch]);
+    }, [dispatch, status])
 
-    const handleAddTag = (e) => {
-        e.preventDefault();
-        if (tagInput.trim()) {
-            dispatch(createTag({ tag: tagInput.trim() }));
-            setTagInput('');  // Clear input field after adding
-        }
-    }
-
-    const handleRemoveTag = (id) => {
-        dispatch(deleteTag(id));
-    }
 
     return (
         <div className="border border-solid rounded mt-10 p-10">
             <h1>Tags</h1>
             <div className="flex flex-col justify-center items-center">
-                <form onSubmit={handleAddTag}>
+                <form>
                     <label className="form-control w-full max-w-xs">
                         Enter a Tag
                     </label>
@@ -42,8 +30,6 @@ const Tags = () => {
                             type="text"
                             placeholder="Type Here..."
                             className="input input-bordered w-full max-w-xs"
-                            value={tagInput}
-                            onChange={(e) => setTagInput(e.target.value)}
                         />
                         <button type="submit" className="btn btn-primary">Add</button>
                     </div>
@@ -69,7 +55,6 @@ const Tags = () => {
                                     <td>
                                         <button
                                             className="btn btn-danger btn-sm"
-                                            onClick={() => handleRemoveTag(tag.id)}
                                         >
                                             Remove
                                         </button>

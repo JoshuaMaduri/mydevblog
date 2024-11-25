@@ -1,9 +1,5 @@
 import { useDispatch, useSelector, useStore } from "react-redux";
 
-// export const useAppDispatch = useDispatch()
-// export const useAppSelector = useSelector()
-// export const useAppStore = useStore()
-
 // Custom hook to return dispatch function
 export const useAppDispatch = () => useDispatch();
 

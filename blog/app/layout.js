@@ -2,6 +2,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { Navbar } from "./components/navbar";
 import { roboto } from "./lib/fonts/fonts";
+import StoreProvider from "./StoreProvider";
 
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
@@ -20,11 +21,13 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={roboto.className}>
-      <body className={`container md:mx-auto antialiased`}>
-          <Navbar/>
-          {children}
-        <script src="https://kit.fontawesome.com/84ce35745e.js" crossOrigin="anonymous"></script>
-      </body>
+        <body className={`container md:mx-auto antialiased`}>
+            <StoreProvider>
+              <Navbar/>
+              {children}
+            </StoreProvider>
+          <script src="https://kit.fontawesome.com/84ce35745e.js" crossOrigin="anonymous"></script>
+        </body>
     </html>
   );
 }

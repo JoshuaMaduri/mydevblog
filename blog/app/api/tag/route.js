@@ -13,8 +13,6 @@ export async function GET() {
 export async function POST(req) {
     try {
       const tagData = await req.json(); 
-  
-      // Validate input (ensure `tag` property exists)
       if (!tagData.tag || typeof tagData.tag !== 'string') {
         return new Response(JSON.stringify({ error: 'Invalid tag data' }), {
           status: 400,

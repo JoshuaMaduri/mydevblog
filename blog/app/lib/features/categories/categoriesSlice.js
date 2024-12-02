@@ -11,7 +11,6 @@ export const addCategories = createAsyncThunk('category/addCategories', async (c
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(category)
     })
-    console.log(response)
     if(!response.ok){
         throw new Error('Failed to create category');
     }

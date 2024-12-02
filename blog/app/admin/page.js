@@ -1,7 +1,26 @@
- import { Search } from "../lib/components/CategorySearch"
+"use client"
+import { useAppDispatch, useAppSelector } from "@/app/lib/hooks";
+import { fetchCategories } from "@/app/lib/features/categories/categoriesSlice"
+import { fetchTags } from "@/app/lib/features/tags/tagsSlice";
+import { useEffect } from "react";
  
  const Admin = () => {
 
+    const dispatch = useAppDispatch();
+    const categories = useAppSelector((state) => state.categories.category);
+    const categoriesStatus = useAppSelector((state) => state.categories.status);
+    const categoriesError = useAppSelector((state) => state.categories.error);
+
+    const tags = useAppSelector((state) => state.tag.tags);
+    const tagsStatus = useAppSelector((state) => state.tag.status);
+    const tagsError = useAppSelector((state) => state.tag.error);
+
+
+    useEffect(() => {
+        if(categoriesStatus === 'idle'){
+            dispatch(fetchCategories());
+        }
+    }, [categoriesStatus, dispatch])
 
     return (
         <div className="mt-10 p-10 ">
@@ -23,17 +42,22 @@
                     <div className="input-group">
                         <select className="select select-bordered" defaultValue="" required>
                             <option disabled value="">Pick category</option>
-                            <option>T-shirts</option>
-                            <option>Mugs</option>
+                            {categories.map((category) => (
+                               <option key={category.id} value={category.category}>
+                                    {category.category}
+                               </option> 
+                            ))}
                         </select>
-
-                        <button className='btn btn-secondary ml-3 text-lg'>+</button>
-                    </div>
-
-                    <div className="input-group">
-                        <Search placeholder="Emter tag name"/>
+                        
+                        {/* Add Function to be able to link it to add categories page. Make sure to save the current blog */}
+                        <button className='btn btn-secondary ml-3 text-lg'>+</button> 
                     </div>
                     
+                    <div className="input-group">
+                        
+                    </div>
+
+
                 </div>
 
                 <div className="mb-1">

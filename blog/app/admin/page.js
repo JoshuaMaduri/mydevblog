@@ -2,7 +2,7 @@
 import { useAppDispatch, useAppSelector } from "@/app/lib/hooks";
 import { fetchCategories } from "@/app/lib/features/categories/categoriesSlice"
 import { fetchTags } from "@/app/lib/features/tags/tagsSlice";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
  
  const Admin = () => {
 
@@ -15,12 +15,28 @@ import { useEffect } from "react";
     const tagsStatus = useAppSelector((state) => state.tag.status);
     const tagsError = useAppSelector((state) => state.tag.error);
 
+    const [selectedTags, setSelectedTags] = useState("")
 
     useEffect(() => {
         if(categoriesStatus === 'idle'){
             dispatch(fetchCategories());
         }
-    }, [categoriesStatus, dispatch])
+
+        if(tagsStatus === "idle"){
+            dispatch(fetchTags())
+        }
+
+    }, [categoriesStatus, tagsStatus, dispatch])
+
+    const handleTagChange = (tag) => {
+        if (selectedTags.includes(tag)) {
+          setSelectedTags((prev) => prev.filter((t) => t !== tag)); // Remove tag
+        } else if (selectedTags.length < 5) {
+          setSelectedTags((prev) => [...prev, tag]); // Add tag
+        }
+      };
+
+
 
     return (
         <div className="mt-10 p-10 ">
@@ -54,7 +70,26 @@ import { useEffect } from "react";
                     </div>
                     
                     <div className="input-group">
-                        
+                        <div className="form-control border rounded max-h-40 overflow-scroll">
+
+                            {tags.map((tag) => (
+                                <label className="label cursor-pointer gap-3">
+                                    <span className="label-text">{tag.tag}</span>
+                                    <input 
+                                        type="checkbox" 
+                                        id={tag.id} 
+                                        value={tag.tag} 
+                                        checked={selectedTags.includes(tag.tag)} 
+                                        className="checkbox-sm" 
+                                        onChange={() => handleTagChange(tag.tag)}
+                                        disabled={
+                                            !selectedTags.includes(tag.name) && selectedTags.length >= 5
+                                        }
+                                    />
+                                </label>
+                            ))}
+
+                        </div>
                     </div>
 
 

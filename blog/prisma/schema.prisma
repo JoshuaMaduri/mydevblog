@@ -28,3 +28,5 @@ model Post {
   tags        Tags[]       @relation("PostTags") // Relation to Tags
   categories  Categories[] @relation("PostCategories") // Relation to Categories
 }
+
+

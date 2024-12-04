@@ -3,18 +3,18 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="w-full min-h-full flex justify-evenly items-center border-solid border-2">
-      <div className="card bg-base-100 lg:w-128 shadow-xl">
+    <div className="w-full min-h-full flex justify-evenly items-center mt-10">
+      <div className="card bg-base-100 lg:w-128 shadow-xl glass gap-3">
         <figure className="px-5 pt-5">
           <Image 
             src="/Profile.jpeg"
             width={300}
             height={300}
             alt="Profile Pic"
-            className="rounded-full"
+            className="rounded-full shadow-xl"
           />
         </figure>
-        <div className="card-body items-center text-center">
+        <div className="card-body items-center text-center gap-10">
             <h1 className="card-title">Joshua Maduri</h1>
             <h5 className="card-title">Software Engineer</h5>
 
@@ -45,19 +45,19 @@ export default function Home() {
             </ul>
             <div className="stats stats-vertical lg:stats-horizontal shadow">
               <div className="stat">
-                <div className="stat-title">Downloads</div>
+                <div className="stat-title">Commits</div>
                 <div className="stat-value">31K</div>
                 <div className="stat-desc">Jan 1st - Feb 1st</div>
               </div>
 
               <div className="stat">
-                <div className="stat-title">New Users</div>
+                <div className="stat-title">Repositories</div>
                 <div className="stat-value">4,200</div>
                 <div className="stat-desc">↗︎ 400 (22%)</div>
               </div>
 
               <div className="stat">
-                <div className="stat-title">New Registers</div>
+                <div className="stat-title">Projects Involved</div>
                 <div className="stat-value">1,200</div>
                 <div className="stat-desc">↘︎ 90 (14%)</div>
               </div>

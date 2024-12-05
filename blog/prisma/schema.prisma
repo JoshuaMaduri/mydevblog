@@ -10,13 +10,13 @@ datasource db {
 
 model Tags {
   id    Int     @id @default(autoincrement())
-  tag   String
+  tag   String  @unique
   posts Post[]  @relation("PostTags") // Relation to Post
 }
 
 model Categories {
   id         Int      @id @default(autoincrement())
-  category   String
+  category   String   @unique
   posts      Post[]   @relation("PostCategories") // Relation to Post
 }
 

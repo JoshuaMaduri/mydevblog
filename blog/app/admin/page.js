@@ -58,7 +58,8 @@ import { useEffect, useState } from "react";
     
         const blogData = {
           ...formData,
-          tags: selectedTags, // Include selected tags
+          tags: selectedTags, 
+          published: false
         };
     
         dispatch(addBlog(blogData))

@@ -3,7 +3,8 @@ import { useAppDispatch, useAppSelector } from "@/app/lib/hooks";
 import { fetchCategories } from "@/app/lib/features/categories/categoriesSlice"
 import { fetchTags } from "@/app/lib/features/tags/tagsSlice";
 import { addBlog } from "../lib/features/blog/blogSlice";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
+import {upload} from '@vercel/blob/client'
  
  const Admin = () => {
 
@@ -16,6 +17,8 @@ import { useEffect, useState } from "react";
     const tagsStatus = useAppSelector((state) => state.tag.status);
     const tagsError = useAppSelector((state) => state.tag.error);
 
+    const inputFileRef = useRef(null)
+    const [blog, setBlob] = useState(null)
     const [selectedTags, setSelectedTags] = useState("")
     const [formData, setFormData] = useState({
         title: "",
@@ -37,9 +40,9 @@ import { useEffect, useState } from "react";
 
     const handleTagChange = (tag) => {
         if (selectedTags.includes(tag)) {
-          setSelectedTags((prev) => prev.filter((t) => t !== tag)); // Remove tag
+          setSelectedTags((prev) => prev.filter((t) => t !== tag)); 
         } else if (selectedTags.length < 5) {
-          setSelectedTags((prev) => [...prev, tag]); // Add tag
+          setSelectedTags((prev) => [...prev, tag]);
         }
       };
 
@@ -48,18 +51,26 @@ import { useEffect, useState } from "react";
         setFormData((prev) => ({ ...prev, [name]: value }));
       };
     
-      const handleSubmit = (e) => {
+      const handleSubmit = async (e) => {
         e.preventDefault();
     
         if (!formData.title || !formData.category || selectedTags.length === 0) {
           alert("Please fill in all fields and select at least one tag.");
           return;
         }
-    
+
+        const file = inputFileRef.current.files[0]
+
+        const newBlob = await upload(file.name, file, {
+          access: 'public',
+          handleUploadUrl: '/api/blogImage'
+        })
+
         const blogData = {
           ...formData,
-          tags: selectedTags, 
-          published: false
+          tags: selectedTags,
+          published: false,
+          
         };
     
         dispatch(addBlog(blogData))
@@ -79,6 +90,8 @@ import { useEffect, useState } from "react";
       return (
         <div className="mt-10 p-10 ">
           <form className="form-control md:max-w-2xl m-auto flex flex-col gap-10" onSubmit={handleSubmit}>
+            
+            {/* Title */}
             <div className="mb-1">
               <label>
                 Title:
@@ -92,7 +105,20 @@ import { useEffect, useState } from "react";
                 />
               </label>
             </div>
-    
+
+            {/* File Image Upload */}
+            <label>
+              <div className="label">
+                <span className="label-text">Select an Image</span>
+              </div>
+              <input type="file" 
+              className="file-input file-input-bordered w-full max-w-xs" 
+              accept=".jpg, .jpeg"
+              ref={inputFileRef}
+              />
+            </label>
+
+
             <div className="flex flex-row justify-between items-center">
               <div className="input-group">
                 <select
@@ -112,7 +138,6 @@ import { useEffect, useState } from "react";
                   ))}
                 </select>
               </div>
-    
               <div className="input-group">
                 <div className="form-control border rounded max-h-40 overflow-scroll">
                   {tags.map((tag) => (

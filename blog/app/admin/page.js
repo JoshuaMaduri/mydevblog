@@ -2,7 +2,7 @@
 import { useAppDispatch, useAppSelector } from "@/app/lib/hooks";
 import { fetchCategories } from "@/app/lib/features/categories/categoriesSlice"
 import { fetchTags } from "@/app/lib/features/tags/tagsSlice";
-import { addBlog } from "../lib/features/blog/blogSlice";
+import { addBlog, fetchBlogs } from "../lib/features/blog/blogSlice";
 import { useEffect, useState } from "react";
  
  const Admin = () => {

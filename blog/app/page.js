@@ -16,7 +16,6 @@ export default function Home() {
 
   useEffect(() => {
     dispatch(fetchGitHubData());
-    console.log(repos)
   }, [dispatch]);
 
   if (loading) return <p>Loading Github Data ....</p>;
@@ -72,7 +71,17 @@ export default function Home() {
 
               <div className="stat">
                 <div className="stat-title">Repositories</div>
-                <div className="stat-value">{repos.length}</div>
+                <div className="stat-value">{repos}</div>
+              </div>
+
+              <div className="stat">
+                <div className="stat-title">Projects</div>
+                <div className="stat-value">2</div>
+              </div>
+
+              <div className="stat">
+                <div className="stat-title">Takehomes</div>
+                <div className="stat-value">3</div>
               </div>
             </div>
         </div>

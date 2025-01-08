@@ -3,28 +3,51 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 export const fetchGitHubData = createAsyncThunk(
     "github/fetchGitHubData",
     async () => {
-        const token = process.env.GITHUB_TOKEN; // Access token from .env
-        const headers = { Authorization: `Bearer ${token}` };
+        const token = process.env.NEXT_PUBLIC_GITHUB_TOKEN; 
+        const headers = { 
+            'Authorization': `Bearer ${token}`, 
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        };
 
         try {
             // Fetch user repositories
             const reposResponse = await fetch("https://api.github.com/user/repos", {
-                headers,
+                headers: headers
             });
 
-            const repos = reposResponse.data;
+            const reposData = await reposResponse.json();
 
-            // Fetch commit counts for each repository in parallel
-            const commitRequests = repos.map((repo) =>
-                fetch(`https://api.github.com/repos/${repo.owner.login}/${repo.name}/commits`, {
-                    headers,
+
+            const commitRequests = reposData.map( async (repo) => {
+
+                const commitResponse = await fetch(`https://api.github.com/repos/${repo.full_name}/commits`, {
+                    headers: headers
                 })
-            );
-            const commitsResponses = await Promise.all(commitRequests);
+                
+                const commits = await commitResponse.json()
 
-            const totalCommits = commitsResponses.reduce((sum, res) => sum + res.data.length, 0);
+                
+                return commits.length
+
+            })
+
+            const commitCounts = await Promise.all(commitRequests)
+
+            
+
+            const totalCommits = commitCounts.reduce((accumulator, currentValue, index) => {
+                const result = accumulator + currentValue;
+                return result;
+            }, 0);
+            
+            const repos = reposData.length
+
 
             return { repos, totalCommits };
+
+
+            
         } catch (err) {
             return rejectWithValue(err.message);
         }

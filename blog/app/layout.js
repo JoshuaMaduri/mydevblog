@@ -3,6 +3,7 @@ import { Navbar } from "./components/navbar";
 import { roboto } from "./lib/fonts/fonts";
 import StoreProvider from "./StoreProvider";
 
+
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 config.autoAddCss = false

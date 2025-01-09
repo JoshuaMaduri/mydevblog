@@ -2,8 +2,9 @@
 import { useAppDispatch, useAppSelector } from "@/app/lib/hooks";
 import { fetchCategories } from "@/app/lib/features/categories/categoriesSlice"
 import { fetchTags } from "@/app/lib/features/tags/tagsSlice";
-import { addBlog, fetchBlogs } from "../lib/features/blog/blogSlice";
+import { addBlog } from "../lib/features/blog/blogSlice";
 import { useEffect, useState } from "react";
+import { upload } from '@vercel/blob/client'
  
  const Admin = () => {
 
@@ -21,7 +22,8 @@ import { useEffect, useState } from "react";
         title: "",
         content: "",
         category: "",
-        tags: []
+        tags: [],
+        image: ""
     });
 
     useEffect(() => {
@@ -48,17 +50,29 @@ import { useEffect, useState } from "react";
         setFormData((prev) => ({ ...prev, [name]: value }));
       };
     
-      const handleSubmit = (e) => {
+      const handleSubmit = async (e) => {
         e.preventDefault();
     
         if (!formData.title || !formData.category || selectedTags.length === 0) {
           alert("Please fill in all fields and select at least one tag.");
           return;
         }
+
+        let imageUrl = null;
+
+        if (formData.image) {
+          const file = formData.image;
+          const uploadedBlob = await upload(file.name, file, {
+            access: 'public',
+            handleUploadUrl: '/api/imageUpload'
+          });
+          imageUrl = uploadedBlob.url
+        }
     
         const blogData = {
           ...formData,
           tags: selectedTags, 
+          image: imageUrl,
           published: false
         };
     
@@ -66,7 +80,7 @@ import { useEffect, useState } from "react";
           .unwrap()
           .then(() => {
             alert("Post added successfully!");
-            setFormData({ title: "", content: "", category: "" });
+            setFormData({ title: "", content: "", category: "", image: null });
             setSelectedTags([]);
           })
           .catch((error) => {
@@ -112,7 +126,15 @@ import { useEffect, useState } from "react";
                   ))}
                 </select>
               </div>
-    
+                
+              <div className="input-group">
+                <input type="file" className="file-input file-input-bordered w-full max-w-xs" onChange={(e) => {
+                  const file = e.target.files[0]
+                  setFormData((prev) => ({...prev, image: file}))
+                }}
+                />
+              </div>
+
               <div className="input-group">
                 <div className="form-control border rounded max-h-40 overflow-scroll">
                   {tags.map((tag) => (

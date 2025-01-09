@@ -37,6 +37,7 @@ export async function POST(req) {
         title: postData.title,
         content: postData.content || null,
         published: postData.published || false,
+        image: postData.image || null,
         tags: {
           connectOrCreate: postData.tags?.map((tag) => ({
             where: { tag },

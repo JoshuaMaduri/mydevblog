@@ -18,21 +18,19 @@ const Blog = () => {
     }, [postsStatus, dispatch])
 
     return (
-        <div>
-
-            <div className="grid grid-cols-3">
+        <div className="mx-auto ">
+            <div className="grid grid-cols-1 lg:grid-cols-3 ">
                 {posts.map((posts) => (
-                    <div className="container flex flex-col justify-between">
-                        <div className="card bg-base-100 w-96 shadow-xl">
-                            <figure>
-                                <img
-                                src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                                alt="Shoes" />
-                            </figure>
-                            <div className="card-body">
-                                <h2 className="card-title">{posts.title}</h2>
-                                <p>If a dog chews shoes whose shoes does he choose?</p>
-                            </div>
+                    <div className="card bg-base-100 w-96 shadow-xl xs:w-48 md:w-64 lg:w-80">
+                        <figure>
+                            <img
+                            // src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+                            src={posts.image}
+                            alt="Shoes" />
+                        </figure>
+                        <div className="card-body">
+                            <h2 className="card-title">{posts.title}</h2>
+                            <p>{posts.categories}</p>
                         </div>
                     </div>
                 ))}

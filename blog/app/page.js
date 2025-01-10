@@ -1,7 +1,7 @@
 "use client"
 import Image from "next/image";
 import Link from "next/link";
-import { ThemeToggle } from "./lib/components/themeToggle";
+
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "./lib/hooks";
 import { fetchGitHubData } from "./lib/features/github/githubSlice";
@@ -20,7 +20,6 @@ export default function Home() {
 
   if (loading) return <p>Loading Github Data ....</p>;
   if (error) return <p>Error: {error}</p>;
-
 
   return (
     <div className="w-full min-h-full flex justify-evenly items-center mt-10">
@@ -103,7 +102,6 @@ export default function Home() {
 
         </div>
       </div>
-      <ThemeToggle/>
     </div>
   );
 }

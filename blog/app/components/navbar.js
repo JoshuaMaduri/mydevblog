@@ -34,7 +34,9 @@ export const Navbar = () => {
                         </Link>
                     </li>
                     <li className="mx-5">
-                        <Link href="/projects">
+                        <Link href="/projects" className={clsx(
+                            {'btn btn-active btn-primary': pathname === "/projects"}
+                        )}>
                             Projects
                         </Link>
                     </li>

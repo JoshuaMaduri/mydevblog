@@ -16,19 +16,34 @@ export const fetchGitHubData = createAsyncThunk(
                 headers: headers
             });
 
+            if(!reposResponse.ok) {
+                throw new Error(`Failed to fetch repositories: ${reposResponse.statusText}`)
+            }
+
             const reposData = await reposResponse.json();
 
 
             const commitRequests = reposData.map( async (repo) => {
+                try{
+                    const commitResponse = await fetch(`https://api.github.com/repos/${repo.full_name}/commits`, {
+                        headers: headers
+                    })
+                    
+                    if (!commitResponse.ok) {
+                        console.warn(`Failed to fetch commits for repo ${repo.full_name}: ${commitResponse.statusText}`);
+                        return 0; 
+                    }
+    
+                    const commits = await commitResponse.json()
+    
+                    
+                    return commits.length
 
-                const commitResponse = await fetch(`https://api.github.com/repos/${repo.full_name}/commits`, {
-                    headers: headers
-                })
+                } catch(error){
+                    console.error(`Error fetching commits for repo ${repo.full_name}: ${error.message}`);
+                    return 0;
+                }
                 
-                const commits = await commitResponse.json()
-
-                
-                return commits.length
 
             })
 

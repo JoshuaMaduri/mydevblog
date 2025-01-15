@@ -23,7 +23,7 @@ export default function Home() {
 
   return (
     <div className="relative w-full min-h-[75vh] flex justify-evenly items-center">
-      <div className="card bg-base-100 lg:w-128 shadow-xl glass gap-3">
+      <div className="card  lg:w-128 shadow-xl glass gap-3">
         <figure className="px-5 pt-5">
           <Image 
             src="/Profile.jpeg"

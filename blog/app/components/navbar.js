@@ -11,7 +11,7 @@ export const Navbar = () => {
 
     return (
         
-        <div className="navbar bg-base-100 transition ease-in-out duration-500">
+        <div className="navbar transition ease-in-out duration-500">
             <div className="navbar-start">
                 <Link href="/" className="btn btn-ghost text-xl">
                     Joshua Maduri
@@ -68,7 +68,7 @@ export const Navbar = () => {
                     </summary>
                     <ul
                         tabIndex={0}
-                        className="menu menu-lg dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+                        className="menu menu-lg dropdown-content rounded-box z-[1] mt-3 w-52 p-2 shadow">
                         <li>
                             <Link href="/">
                                 Blog

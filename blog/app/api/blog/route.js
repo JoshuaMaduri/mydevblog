@@ -40,8 +40,8 @@ export async function POST(req) {
         image: postData.image || null,
         tags: {
           connectOrCreate: postData.tags?.map((tag) => ({
-            where: { tag },
-            create: { tag },
+            where: { tag: tag.tag },
+            create: { tag: tag.tag },
           })),
         },
         categories: {

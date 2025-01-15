@@ -62,7 +62,7 @@ export default function Home() {
                 </Link>
               </li>
             </ul>
-            <div className="stats stats-vertical lg:stats-horizontal shadow">
+            <div className="hidden md:stats shadow">
               <div className="stat">
                 <div className="stat-title">Commits</div>
                 <div className="stat-value">{commitCount}</div>
@@ -86,7 +86,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="'">
+      <div className="hidden lg:block">
         <h2>Blog</h2>
         <div className="carousel carousel-center bg-neutral rounded-box max-w-md space-x-4 p-4">  
           

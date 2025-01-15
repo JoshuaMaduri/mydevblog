@@ -11,7 +11,7 @@ export const fetchGitHubData = createAsyncThunk(
         };
 
         try {
-            // Fetch user repositories
+            
             const reposResponse = await fetch("https://api.github.com/user/repos", {
                 headers: headers
             });
@@ -35,7 +35,6 @@ export const fetchGitHubData = createAsyncThunk(
                     }
     
                     const commits = await commitResponse.json()
-    
                     
                     return commits.length
 
@@ -63,8 +62,9 @@ export const fetchGitHubData = createAsyncThunk(
 
 
             
-        } catch (err) {
-            return rejectWithValue(err.message);
+        } catch (error) {
+            console.error("Error fetching events:", error.response?.data || error.message);
+            return events; // Return whatever was fetched before the error
         }
     }
 );

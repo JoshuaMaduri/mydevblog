@@ -21,12 +21,14 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={roboto.className}>
-        <body className={`container md:mx-auto antialiased`}>
+        <body>
+          <header><Navbar/></header>
+          <main>
             <StoreProvider>
-              <Navbar/>
               {children}
               <ThemeToggle/>
             </StoreProvider>
+          </main>
           <script src="https://kit.fontawesome.com/84ce35745e.js" crossOrigin="anonymous"></script>
         </body>
     </html>

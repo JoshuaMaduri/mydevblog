@@ -11,7 +11,7 @@ export const Navbar = () => {
 
     return (
         
-        <div className="navbar bg-base-100">
+        <div className="navbar bg-base-100 transition ease-in-out duration-500">
             <div className="navbar-start">
                 <Link href="/" className="btn btn-ghost text-xl">
                     Joshua Maduri

@@ -22,7 +22,7 @@ export default function Home() {
   if (error) return <p>Error: {error}</p>;
 
   return (
-    <div className="w-full min-h-full flex justify-evenly items-center mt-10">
+    <div className="relative w-full min-h-[75vh] flex justify-evenly items-center">
       <div className="card bg-base-100 lg:w-128 shadow-xl glass gap-3">
         <figure className="px-5 pt-5">
           <Image 
